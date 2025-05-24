@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>10-Minute Timed Google Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 40px;
+    }
+    #timer {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: red;
+    }
+    #form-container {
+      transition: opacity 1s ease;
+    }
+  </style>
+</head>
+<body>
+  <h1>You have 10 minutes to complete this form</h1>
+  <div id="timer">Time left: 10:00</div>
+
+  <div id="form-container">
+    <!-- Your Google Form -->
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdUTEO4uUYYJS5eXwiEsNQnM7p3fmFutHkoorLVyIL1rzqlGw/viewform?embedded=true" width="640" height="956" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+  </div>
+
+  <script>
+    let totalSeconds = 600; // 10 minutes in seconds
+    const timerElement = document.getElementById("timer");
+    const formContainer = document.getElementById("form-container");
+
+    const countdown = setInterval(() => {
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+      timerElement.textContent = `Time left: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+      totalSeconds--;
+
+      if (totalSeconds < 0) {
+        clearInterval(countdown);
+        formContainer.innerHTML = "<h2>⏰ Time is up! The form is no longer available.</h2>";
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
